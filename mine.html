@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Stuff</title>
+</head>
+<body>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Stuff - ElectricityMod</title>
+  <style>
+    :root {
+      --pm-blue: #00c3ff;
+      --pm-blue-dark: #008eb8;
+      --pm-yellow: #ffb700;
+      --bg-dark: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    /* --- Top Navigation --- */
+    .navbar {
+      background-color: #0b1120;
+      border-bottom: 2px solid var(--pm-blue);
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-left, .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand {
+      font-weight: 900;
+      font-size: 18px;
+      color: var(--pm-blue);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .create-btn {
+      background: var(--pm-blue);
+      color: #000;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .create-btn:hover {
+      background: #33d1ff;
+    }
+
+    /* --- Layout Container --- */
+    .mystuff-container {
+      max-width: 1100px;
+      margin: 24px auto;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 24px;
+    }
+
+    /* --- Sidebar Navigation --- */
+    .sidebar {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 12px;
+      height: fit-content;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      padding-left: 8px;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+    }
+
+    .sidebar-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      margin-bottom: 4px;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .sidebar-item:hover {
+      background: #283548;
+      color: var(--text-main);
+    }
+
+    .sidebar-item.active {
+      background: var(--pm-blue);
+      color: #000;
+    }
+
+    .item-count {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+
+    /* --- Main Content Header --- */
+    .content-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .content-title {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .sort-select {
+      background: var(--card-bg);
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
+      padding: 6px 12px;
+      border-radius: 6px;
+      outline: none;
+      font-size: 13px;
+    }
+
+    /* --- Project List --- */
+    .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      transition: border-color 0.2s;
+    }
+
+    .project-card:hover {
+      border-color: var(--pm-blue);
+    }
+
+    .project-thumb {
+      width: 120px;
+      height: 90px;
+      background: #000;
+      border-radius: 6px;
+      border: 2px solid var(--pm-yellow);
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .thumb-placeholder {
+      font-size: 24px;
+    }
+
+    .project-details {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .project-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .project-title:hover {
+      color: var(--pm-blue);
+    }
+
+    .project-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      gap: 16px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .badge-shared {
+      background: #10b981;
+      color: #000;
+    }
+
+    .badge-unshared {
+      background: #64748b;
+      color: #fff;
+    }
+
+    .project-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-action {
+      background: #334155;
+      color: var(--text-main);
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn-action:hover {
+      background: #475569;
+    }
+
+    .btn-danger {
+      background: #ef4444;
+      color: #fff;
+    }
+
+    .btn-danger:hover {
+      background: #dc2626;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header class="navbar">
+    <div class="nav-left">
+      <a href="#" class="brand">⚡ ElectricityMod</a>
+      <a href="#" class="create-btn">+ New Project</a>
+    <a href="https://shauntagates6911-ops.github.io/ElecricityMod/editor.html">New</a>
+    </div>
+    <div class="nav-right">
+      <span>User Profile</span>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="mystuff-container">
+
+    <!-- Sidebar Filters -->
+    <aside class="sidebar">
+      <div class="sidebar-title">My Stuff</div>
+      <ul class="sidebar-menu">
+        <li class="sidebar-item active">
+          <span>All Projects</span>
+          <span class="item-count">3</span>
+        </li>
+        <li class="sidebar-item">
+          <span>Shared</span>
+          <span class="item-count">1</span>
+        </li>
+        <li class="sidebar-item">
+          <span>Unshared</span>
+          <span class="item-count">2</span>
+        </li>
+        <li class="sidebar-item">
+          <span>Trash</span>
+          <span class="item-count">0</span>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Project List Content -->
+    <main class="content">
+      <div class="content-header">
+        <h1 class="content-title">All Projects (3)</h1>
+        <div class="header-actions">
+          <select class="sort-select">
+            <option>Last Modified</option>
+            <option>Views</option>
+            <option>Title (A-Z)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="project-list">
+
+        <!-- Project Item 1 -->
+        <div class="project-card">
+          <div class="project-thumb">
+            <span class="thumb-placeholder">⚡</span>
+          </div>
+          <div class="project-details">
+            <a href="#" class="project-title">Circuit Simulator Engine v1</a>
+            <div class="project-meta">
+              <span class="badge badge-shared">Shared</span>
+              <span>Modified: 2 hours ago</span>
+              <span>👁️ 142 views</span>
+              <span>❤️ 12 loves</span>
+            </div>
+          </div>
+          <div class="project-actions">
+            <a href="#" class="btn-action">See Inside</a>
+            <button class="btn-action">Unshare</button>
+          </div>
+        </div>
+
+        <!-- Project Item 2 -->
+        <div class="project-card">
+          <div class="project-thumb">
+            <span class="thumb-placeholder">🔋</span>
+          </div>
+          <div class="project-details">
+            <a href="#" class="project-title">Battery Logic Gate Mod</a>
+            <div class="project-meta">
+              <span class="badge badge-unshared">Unshared</span>
+              <span>Modified: Yesterday</span>
+              <span>👁️ 0 views</span>
+            </div>
+          </div>
+          <div class="project-actions">
+            <a href="#" class="btn-action">See Inside</a>
+            <button class="btn-action">Share</button>
+            <button class="btn-action btn-danger">Delete</button>
+          </div>
+        </div>
+
+        <!-- Project Item 3 -->
+        <div class="project-card">
+          <div class="project-thumb">
+            <span class="thumb-placeholder">🎮</span>
+          </div>
+          <div class="project-details">
+            <a href="#" class="project-title">Untitled-3</a>
+            <div class="project-meta">
+              <span class="badge badge-unshared">Unshared...</span>
+              <span>Modified: July 12, 2026</span>
+              <span>👁️ 0 views</span>
+            </div>
+          </div>
+          <div class="project-actions">
+            <a href="#" class="btn-action">See Inside</a>
+            <button class="btn-action">Share</button>
+            <button class="btn-action btn-danger">Delete</button>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+</body>
+</html>
+
+</body>
+</html>
