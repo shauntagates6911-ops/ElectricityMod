@@ -1,0 +1,17 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)\\.lightning",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/x-lightning+json"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment"
+        }
+      ]
+    }
+  ]
+}
