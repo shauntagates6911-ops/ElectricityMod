@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lightning File Demo</title>
+</head>
+<body>
+
+  <button id="exportBtn">Save .lightning File</button>
+  <button id="importBtn">Open .lightning File</button>
+
+  <script type="module">
+    import { LightningFileManager } from './LightningFileManager.js';
+
+    // Sample project state
+    const currentProject = {
+      title: "My Electric Circuit",
+      nodes: [ { id: 1, type: "resistor", ohms: 100 } ]
+    };
+
+    document.getElementById("exportBtn").addEventListener("click", () => {
+      LightningFileManager.saveProject(currentProject, "MyCircuit");
+    });
+
+    document.getElementById("importBtn").addEventListener("click", async () => {
+      try {
+        const loadedData = await LightningFileManager.loadProject();
+        console.log("Loaded .lightning data:", loadedData);
+        alert(`Successfully loaded project: ${loadedData.title || 'Untitled'}`);
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+  </script>
+</body>
+</html>
