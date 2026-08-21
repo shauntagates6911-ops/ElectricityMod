@@ -1,0 +1,10 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\.lightning]
+@="ElectricityMod.Project"
+
+[HKEY_CLASSES_ROOT\ElectricityMod.Project]
+@="ElectricityMod Project File"
+
+[HKEY_CLASSES_ROOT\ElectricityMod.Project\shell\open\command]
+@="\"C:\\Path\\To\\YourApp.exe\" \"%1\""
