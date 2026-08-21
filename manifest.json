@@ -1,0 +1,21 @@
+{
+  "name": "ElectricityMod",
+  "short_name": "ElectricityMod",
+  "start_url": "/",
+  "display": "standalone",
+  "file_handlers": [
+    {
+      "action": "/",
+      "accept": {
+        "application/x-lightning+json": [".lightning"]
+      },
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}
